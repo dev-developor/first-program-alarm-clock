@@ -1,51 +1,41 @@
 from datetime import datetime
 from playsound import playsound
 
-alarm_time = input("Enter time in 'HH:MM:SS AM/PM' format: ")
-
-
 def validate_time(alarm_time):
-    if len(alarm_time) != 11:
+    if len(alarm_time) != 5:
         return "Invalid time format! Please try again..."
     else:
-        if int(alarm_time[0:2]) > 12:
+        if int(alarm_time[0:2]) > 24:
             return "Invalid HOUR format! Please try again..."
-        elif int(alarm_time[3:5]) > 59:
+        elif int(alarm_time[3:4]) > 59:
             return "Invalid MINUTE format! Please try again..."
-        elif int(alarm_time[6:8]) > 59:
-            return "Invalid SECOND format! Please try again..."
         else:
             return "ok"
-print(validate_time(alarm_time))
 
-while True:
 
+if __name__ == "__main__":
+    alarm_time = input("Enter time in 'HH:MM' format (Enter in military time): ")
+    
     validate = validate_time(alarm_time.lower())
     if validate != "ok":
         print(validate)
-        break
     else:
         print(f"Setting alarm for {alarm_time}...")
-        break
+        
+    alarm_hour = alarm_time[0:2]
+    alarm_min = alarm_time[3:5]
+    
+    while True:
+        now = datetime.now()
 
-alarm_hour = alarm_time[0:2]
-alarm_min = alarm_time[3:5]
-alarm_sec = alarm_time[6:8]
-alarm_period = alarm_time[9:].upper()
+        current_hour_and_minute = now.strftime("%H:%M")
 
-while True:
-    now = datetime.now()
+        if alarm_time == current_hour_and_minute:
+            print("Wake Up!")
+            while True:
+                playsound('/home/mr-robot/alarm/sounds/funny.mp3')
+            
 
-    current_hour = now.strftime("%I")
-    current_min = now.strftime("%M")
-    current_sec = now.strftime("%S")
-    current_period = now.strftime("%p")
+    print(validate_time(alarm_time))
 
-    if alarm_period == current_period:
-        if alarm_hour == current_hour:
-            if alarm_min == current_min:
-                if alarm_sec == current_sec:
-                    print("Wake Up!")
-                    while True:
-                        playsound('/home/mr-robot/alarm/sounds/funny.mp3')
                     #break
