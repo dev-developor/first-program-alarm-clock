@@ -6,9 +6,6 @@ class Alarm:
         self.alarm_time = alarm_time
 
     def validate_time(self):
-        alarm_hour = self.alarm_time[0:2]
-        alarm_min = self.alarm_time[3:5]
-
         if len(self.alarm_time) != 5:
             return "Invalid time format! Please try again..."
         else:
@@ -34,7 +31,7 @@ class Alarm:
         return self.alarm_time
 
 if __name__ == '__main__':
-    alarm_time = input("")
+    alarm_time = input("Enter what time your alarm should go off in HH:MM format. ")
 
     a = Alarm(alarm_time)
 
